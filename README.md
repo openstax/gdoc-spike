@@ -6,7 +6,7 @@
 
 Different import methods support different features. We cannot pick parts from different methods so we have to choose one. This table shows which features work in the different imports:
 
-|  | Copy/Paste custom HTML | Word | ~HTML~ (no import) | Drive
+|  | [Copy/Paste custom HTML](https://docs.google.com/document/d/1_5hs7VSueGy0OZWQAkLDia-i-1a4uaqv2YZzHkE2h2M/edit) | [Word](https://docs.google.com/document/d/1xCGMgI8y0mw3Hz-3xPCqdGGqzZnaqNhP/edit) | ~HTML~ (no import) | Drive
 |--|--|--|--|--|
 | Simple editable inline math: x^2 y^2 | ❌ ![image](https://user-images.githubusercontent.com/253202/69986022-12568780-1502-11ea-93b3-713122eb2551.png) [Source](https://mdn.mozillademos.org/en-US/docs/Mozilla/MathML_Project/MathML_Torture_Test$samples/MathML_Torture_Test?revision=1506691) used FireFox so that MathML would be in clipboard | ✅ |  |  | 
 | Simple viewable inline Math: x^2 y^2 | ⚠️ ![image](https://user-images.githubusercontent.com/253202/69986777-ab39d280-1503-11ea-8bee-61c71f54549e.png) copying HTML with a PNG; alt-text did import; note the vertical alignment | ✅ (not in footnotes though) |  |  | 
