@@ -1,10 +1,10 @@
 # Details of copy&paste results
 
-tl;dr RAW and bcked works good except math. Webview is a mixed bag and PDF not useful.
+tl;dr RAW and baked content works good except math. Webview is a mixed bag and PDF not useful.
 
-## Copy&Paste from raw to GDocs
+## Copy&Paste from raw and baked to GDocs
 
-Content structure and images are pretty much the same in GDocs. Every content could be copy&pasted in a look&feel similar to the baked content.
+Content structure and images are pretty much the same in GDocs. Every content could be copy&pasted in a look&feel similar to the raw or baked content.
 
 [Raw content](https://archive-staging.cnx.org/contents/49cf2d69-1d37-49aa-9e61-16da4c52ce37@14#66047)
 
