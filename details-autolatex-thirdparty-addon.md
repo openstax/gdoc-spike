@@ -5,6 +5,7 @@ From reading this article [How to write academic documents with Google Docs](htt
 **Auto-LaTeX Equations**
 
 Google Drive Addon with over 300,000 installations: https://gsuite.google.com/marketplace/app/autolatex_equations/850293439076
+
 Homepage: http://autolatex.com
 
 * It provides Latex equations rendered and editable again with one click. They only need to be enclosed by `$$` at the beginning and the end
