@@ -2,6 +2,8 @@
 
 (insert A4 card here)
 
+Check out the [./pandoc-results](./pandoc-results.md) for a concrete example of importing.
+
 # Features Table
 
 Different import methods support different features. We cannot pick parts from different methods so we have to choose one. This table shows which features work in the different imports:
