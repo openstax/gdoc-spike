@@ -6,6 +6,11 @@ In this exercise we used HTML, Pandoc, & Word to:
 1. add styling to denote features like "Tip" or "Everyday Connections"
 1. try inserting footnotes from an HTML source file.
 
+## Why Pandoc?
+
+It supports converting HTML+MathML+Footnotes into Word `.docx` files while keeping the Math editable.
+
+It may or may not support a way to style Features on its own (see bottom for options)
 
 ## tl;dr Proposal
 
