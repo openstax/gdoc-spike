@@ -122,6 +122,6 @@ TBD
 
 ---
 
-<b id="f1">1</b> In order to trigger pandoc to parse footnotes, the EPUB input format needs to be used so we may have to generate an ePUB. [↩](#a1)
+<a id="f1" href="#a1"><b>1</b></a> In order to trigger pandoc to parse footnotes, the EPUB input format needs to be used so we may have to generate an ePUB.
 
-<b id="f2">2</b> Actually, the Torture Tests needed to convert to OpenOffice first. Unsure if that is always necessary [↩](#a2)
+<a id="f2" href="#a2"><b>2</b></a> Actually, the Torture Tests needed to convert to OpenOffice first. Unsure if that is always necessary
