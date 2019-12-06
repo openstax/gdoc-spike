@@ -16,7 +16,7 @@ It may or may not support a way to style Features on its own (see bottom for opt
 
 1. Fix the RawHTML format for footnotes so they stay with the content.
 1. Start with a Raw (or Baked) HTML file <sup id="a1">[[1](#f1)]</sup>
-1. Run XSLT over the HTML to convert the feature into a table, or <sup id="a2">[[2](#f2)]</sup>
+1. Run XSLT over the HTML to wrap each feature into a table, or <sup id="a2">[[2](#f2)]</sup>
 1. Run the HTML through Pandoc and generate a docx file <sup id="a3">[[3](#f3)]</sup>
 1. Upload the docx file to GDocs
 
