@@ -1,6 +1,10 @@
-# Using Pandoc & Word
+# Using HTML, Pandoc, & Word
 
-In this exercise we used Pandoc & Word to import editable math, styling to denote features like "Tip" or "Everyday Connections", and try inserting footnotes from an HTML source file.
+In this exercise we used HTML, Pandoc, & Word to:
+
+1. import editable math
+1. add styling to denote features like "Tip" or "Everyday Connections"
+1. try inserting footnotes from an HTML source file.
 
 ## Importing Math
 
@@ -89,5 +93,18 @@ One hacky option seems to be (from [SO](https://stackoverflow.com/a/53561308)):
 
 
 ### Results
+
+TBD
+
+
+## Footnotes
+
+### Background
+
+There is no native way to mark up footnotes in HTML.
+
+Pandoc seems to [define a format](https://github.com/jgm/pandoc/blob/master/src/Text/Pandoc/Readers/HTML.hs#L224) when using the ePUB Reader (see `guardEnabled Ext_epub_html_exts` in the link before).
+
+### Method
 
 TBD
