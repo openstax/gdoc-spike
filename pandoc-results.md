@@ -6,6 +6,16 @@ In this exercise we used HTML, Pandoc, & Word to:
 1. add styling to denote features like "Tip" or "Everyday Connections"
 1. try inserting footnotes from an HTML source file.
 
+## tl;dr Proposal
+
+1. Fix the RawHTML format for footnotes so they stay with the content.
+1. Start with a Raw (or Baked) HTML file <sup id="a1">[1](#f1)</sup>
+
+1. Run it through Pandoc and generate a docx file <sup id="a2">[2](#f2)</sup>
+
+1. Upload the docx file to GDocs
+
+
 ## Importing Math
 
 Some math _can_ be imported into GDocs in an editable way using Pandoc & MS Word `.docx` file.
@@ -108,3 +118,10 @@ Pandoc seems to [define a format](https://github.com/jgm/pandoc/blob/master/src/
 ### Method
 
 TBD
+
+
+---
+
+<b id="f1">1</b> In order to trigger pandoc to parse footnotes, the EPUB input format needs to be used so we may have to generate an ePUB. [↩](#a1)
+
+<b id="f2">2</b> Actually, the Torture Tests needed to convert to OpenOffice first. Unsure if that is always necessary [↩](#a2)
