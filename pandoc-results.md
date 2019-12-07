@@ -6,6 +6,8 @@ In this exercise we used HTML, Pandoc, & Word to:
 1. add styling to denote features like "Tip" or "Everyday Connections"
 1. try inserting footnotes from an HTML source file.
 
+One can run [./script/html-to-docx.bash](./script/html-to-docx.bash) on [1.5 Factoring Polynomials](https://cnx.org/contents/mwjClAV_@15.1:Sc8taR03@14/1-5-Factoring-Polynomials) and here is the [Google Doc result](https://docs.google.com/document/d/18ps6pDuzkXMbGxfZcJphinVDuALcBJyp/edit)
+
 ## Why Pandoc?
 
 It supports converting HTML+MathML+Footnotes into Word `.docx` files while keeping the Math editable.
