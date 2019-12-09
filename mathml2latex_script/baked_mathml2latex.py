@@ -1,10 +1,11 @@
+from builtins import str
 from lxml import etree
 import os
 import io
 
 def force_math_namespace_only(doc):
     # http://wiki.tei-c.org/index.php/Remove-Namespaces.xsl
-    xslt='''<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1998/Math/MathML">
+    xslt=u'''<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1998/Math/MathML">
     <xsl:output method="xml" indent="no"/>
 
     <xsl:template match="/|comment()|processing-instruction()">
@@ -27,7 +28,7 @@ def force_math_namespace_only(doc):
     </xsl:stylesheet>
     '''
 
-    xslt_doc = etree.parse(io.BytesIO(xslt))
+    xslt_doc = etree.parse(io.StringIO(xslt))
     transform = etree.XSLT(xslt_doc)
     doc = transform(doc)
     return doc
@@ -40,7 +41,7 @@ def mathml2latex_yarosh(equation):
     xslt = etree.parse(xslt_file)
     transform = etree.XSLT(xslt)
     newdom = transform(dom)
-    return unicode(newdom)
+    return str(newdom)
 
 def main():
     f = etree.parse("2-5-Quadratic-Equations.xhtml")
@@ -53,7 +54,7 @@ def main():
         autolatex = '$' + mathml2latex_yarosh(equation) +'$'
         r.tail = autolatex + r.tail if r.tail else autolatex
     etree.strip_elements(f,'{http://www.w3.org/1999/xhtml}math',with_tail=False)
-    print(etree.tostring(f,pretty_print=True))
+    print(etree.tostring(f,pretty_print=True).decode('utf-8'))
 
 if __name__== "__main__":
     main()
