@@ -101,7 +101,11 @@ Example: https://github.com/jgm/pandoc/blob/master/src/Text/Pandoc/Writers/Docx.
 
 ### Method
 
-One hacky option seems to be (from [SO](https://stackoverflow.com/a/53561308)):
+One hacky option is to wrap each Feature inside a 1x1 Table so that it is indented, colored, and bordered. This method may be a problem for nested features (e.g. an an Exercise inside an Example) and may be a problem for Accessibility.
+
+
+
+Another hacky option seems to be (from [SO](https://stackoverflow.com/a/53561308)):
 
 1. encode anything that eventually needs styling as `[MAGIC_TEXT_BLOCK]` or something in the content
 1. (maybe need to add all the custom styles into the docx .xml files that pandoc uses to generate the docx file)
@@ -111,7 +115,8 @@ One hacky option seems to be (from [SO](https://stackoverflow.com/a/53561308)):
 
 ### Results
 
-TBD
+- Hacky Option 1 (1x1 Table): this is the method used in main Google Doc Result at the top. **Note:** It is difficult to use different colors because Word requires a separate style for each color or border style (so pandoc requires a custom template docx file) so we might have to provide gray backgrounds initially (like webview).
+- Hacky Option 2 (style the 1st/last paragraph): TBD
 
 
 ## Footnotes
