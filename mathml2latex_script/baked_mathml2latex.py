@@ -1,3 +1,4 @@
+from __future__ import print_function
 from builtins import str
 from lxml import etree
 import os
