@@ -4,6 +4,13 @@
 
 Check out the [./pandoc-results](./pandoc-results.md) for a concrete example of importing.
 
+# Example
+
+1. Install pandoc (`brew install pandoc`) and xsltproc (`brew install libxslt`)
+1. Run `./script/html-to-docx.bash ./script/input-module.html output.docx`
+1. View `output.docx` or upload it to Google Docs ([see here](https://docs.google.com/document/d/18ps6pDuzkXMbGxfZcJphinVDuALcBJyp/edit))
+
+
 # Features Table
 
 Different import methods support different features. We cannot pick parts from different methods so we have to choose one. This table shows which features work in the different imports:
