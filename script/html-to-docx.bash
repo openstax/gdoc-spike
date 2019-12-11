@@ -1,8 +1,23 @@
 input_file=$1
 output_file=$2
 
+root_dir="$(dirname "$0")/.."
+
 if [[ $0 != "-bash" ]]; then
   cd "$(dirname "$0")/.." || exit 111
 fi
 
-xsltproc ./script/wrap-in-table.xsl "${input_file}" | pandoc --from=html --to=docx --output="${output_file}" -
+dir_name="$(dirname ${input_file})"
+
+temp_file="${input_file}.temp.html"
+
+cur_dir=$(pwd)
+
+xsltproc --output "${temp_file}" ./script/wrap-in-table.xsl "${input_file}"
+
+# In order to find the ../resources/*, pandoc's current directory needs to be where the HTML file is
+x=$(cd "${dir_name}" && pandoc --from=html --to=docx --output="${cur_dir}/${output_file}" "${cur_dir}/${temp_file}")
+
+cd "${cur_dir}"
+
+rm "${temp_file}"

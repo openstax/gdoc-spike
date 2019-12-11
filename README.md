@@ -10,6 +10,9 @@ Check out the [./pandoc-results](./pandoc-results.md) for a concrete example of 
 1. Run `./script/html-to-docx.bash ./script/input-module.html output.docx`
 1. View `output.docx` or upload it to Google Docs ([see here](https://docs.google.com/document/d/18ps6pDuzkXMbGxfZcJphinVDuALcBJyp/edit))
 
+## Calculus
+
+Or, run `./script/do-calculus.bash`. This will download the book (via `wget`) and build several `output/*.docx` files that can be uploaded to Google Docs. See the [Calculus book here](https://drive.google.com/drive/u/0/folders/16LjQx50ID4U4OEVPHz0UhdoleiYpwbhj)
 
 # Features Table
 
