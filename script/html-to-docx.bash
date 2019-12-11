@@ -16,7 +16,10 @@ cur_dir=$(pwd)
 xsltproc --output "${temp_file}" ./script/wrap-in-table.xsl "${input_file}"
 
 # In order to find the ../resources/*, pandoc's current directory needs to be where the HTML file is
-x=$(cd "${dir_name}" && pandoc --from=html --to=docx --output="${cur_dir}/${output_file}" "${cur_dir}/${temp_file}")
+
+# To create a custom reference doc run `pandoc -o custom-reference.docx --print-default-data-file reference.docx`
+# Use custom table style: https://github.com/jgm/pandoc/issues/3275
+x=$(cd "${dir_name}" && pandoc --reference-doc="${cur_dir}/custom-reference.docx" --from=html --to=docx --output="${cur_dir}/${output_file}" "${cur_dir}/${temp_file}")
 
 cd "${cur_dir}"
 
