@@ -48,15 +48,16 @@ def main():
     f = etree.parse("2-5-Quadratic-Equations.xhtml")
     ns = {"h": "http://www.w3.org/1999/xhtml",
           "m": "http://www.w3.org/1998/Math/MathML"}
-    for r in f.xpath('//h:math', namespaces=ns):
+    for r in f.xpath('//h:math|//m:math', namespaces=ns):
         math_etree = force_math_namespace_only(r)
         equation = etree.tostring(math_etree, with_tail=False, inclusive_ns_prefixes=None)
         # print(equation)
-        autolatex = '$' + mathml2latex_yarosh(equation) +'$'
+        autolatex = '$' + mathml2latex_yarosh(equation) + '$'
         if (autolatex[1] != '$'):
             autolatex = '$' + autolatex + '$'
         r.tail = autolatex + r.tail if r.tail else autolatex
-    etree.strip_elements(f,'{http://www.w3.org/1999/xhtml}math',with_tail=False)
+    etree.strip_elements(f,'{http://www.w3.org/1999/xhtml}math', with_tail=False)
+    etree.strip_elements(f,'{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
     print(etree.tostring(f,pretty_print=True).decode('utf-8'))
 
 if __name__== "__main__":
