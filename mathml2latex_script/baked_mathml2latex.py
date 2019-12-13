@@ -6,7 +6,10 @@ import io
 
 def force_math_namespace_only(doc):
     # http://wiki.tei-c.org/index.php/Remove-Namespaces.xsl
-    xslt=u'''<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1998/Math/MathML">
+    xslt=u'''<xsl:stylesheet
+      version="1.0"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns="http://www.w3.org/1998/Math/MathML">
     <xsl:output method="xml" indent="no"/>
 
     <xsl:template match="/|comment()|processing-instruction()">
