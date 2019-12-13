@@ -59,9 +59,9 @@ def main():
         if (autolatex[1] != '$'):
             autolatex = '$' + autolatex + '$'
         r.tail = autolatex + r.tail if r.tail else autolatex
-    etree.strip_elements(f,'{http://www.w3.org/1999/xhtml}math', with_tail=False)
-    etree.strip_elements(f,'{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
-    print(etree.tostring(f,pretty_print=True).decode('utf-8'))
+    etree.strip_elements(f, '{http://www.w3.org/1999/xhtml}math', with_tail=False)
+    etree.strip_elements(f, '{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
+    print(etree.tostring(f, pretty_print=True).decode('utf-8'))
 
 if __name__== "__main__":
     main()
