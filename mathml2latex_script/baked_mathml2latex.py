@@ -53,6 +53,8 @@ def main():
         equation = etree.tostring(math_etree, with_tail=False, inclusive_ns_prefixes=None)
         # print(equation)
         autolatex = '$' + mathml2latex_yarosh(equation) +'$'
+        if (autolatex[1] != '$'):
+            autolatex = '$' + autolatex + '$'
         r.tail = autolatex + r.tail if r.tail else autolatex
     etree.strip_elements(f,'{http://www.w3.org/1999/xhtml}math',with_tail=False)
     print(etree.tostring(f,pretty_print=True).decode('utf-8'))
