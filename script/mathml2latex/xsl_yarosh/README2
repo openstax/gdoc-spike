@@ -1,5 +1,7 @@
 This file is not part of the original source code.
 
+Not the latest version of the MathML to LaTeX XSLTs where used because latest version causes problems with block mode MathML.
+
 Researched links to archived web page and Sourceforge project:
 
 https://sourceforge.net/projects/xsltml/files/xsltml/
