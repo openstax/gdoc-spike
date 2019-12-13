@@ -3,6 +3,7 @@ from builtins import str
 from lxml import etree
 import os
 import io
+import sys
 
 def force_math_namespace_only(doc):
     # http://wiki.tei-c.org/index.php/Remove-Namespaces.xsl
@@ -48,7 +49,8 @@ def mathml2latex_yarosh(equation):
     return str(newdom)
 
 def main():
-    f = etree.parse("2-5-Quadratic-Equations.xhtml")
+    # f = etree.parse("2-5-Quadratic-Equations.xhtml")
+    f = etree.parse(sys.argv[1])
     ns = {"h": "http://www.w3.org/1999/xhtml",
           "m": "http://www.w3.org/1998/Math/MathML"}
     for r in f.xpath('//h:math|//m:math', namespaces=ns):
