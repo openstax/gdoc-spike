@@ -28,16 +28,12 @@
 <xsl:template name="wrapper">
   <xsl:param name="label"/>
 
-  <table class="not-used-but-wraps-a-feature">
-    <tr><th><xsl:value-of select="$label"/></th></tr>
-    <tr>
-      <td>
-        <xsl:copy>
-          <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-      </td>
-    </tr>
-  </table>
+  <p><xsl:value-of select="$label"/></p>
+  <hr/>
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  <hr/>
 </xsl:template>
 
 </xsl:stylesheet>
