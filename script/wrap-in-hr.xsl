@@ -33,7 +33,6 @@
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
-  <hr/>
 </xsl:template>
 
 </xsl:stylesheet>
