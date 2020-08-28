@@ -1,7 +1,8 @@
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:h="http://www.w3.org/1999/xhtml"
-  xmlns:m="http://www.w3.org/1998/Math/MathML">
+  xmlns="http://www.w3.org/1999/xhtml"
+  exclude-result-prefixes="h">
 
 <xsl:template match="@*|node()">
   <xsl:copy>
@@ -100,11 +101,17 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="m:math" mode="grey">
-  <xsl:copy>
-    <xsl:attribute name="custom-style">NoteExampleGrey</xsl:attribute>
-    <xsl:apply-templates select="@*|node()" mode="grey"/>
-  </xsl:copy>
+<!-- make block math to inline because of Google Docs styling bug -->
+<!-- note: pandoc ignores text center property https://github.com/jgm/pandoc/issues/719 -->
+<xsl:template match="h:math[@display='block']" mode="grey">
+  <div>
+  <p style="text-align:center">
+    <xsl:copy>
+      <xsl:attribute name="display">inline</xsl:attribute>
+      <xsl:apply-templates select="@*[name()!='display']|node()" mode="grey"/>
+    </xsl:copy>
+  </p>
+  </div>
 </xsl:template>
 
 <xsl:template match="@*|node()" mode="grey">
