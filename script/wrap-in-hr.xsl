@@ -122,6 +122,9 @@
 
 <xsl:template name="wrapper">
   <xsl:param name="label"/>
+  <xsl:if test="preceding-sibling::*[1][@data-type='note' or @data-type='example']">
+    <div custom-style="SmallWhiteGap"><p>&#160;</p></div>
+  </xsl:if>
     <div custom-style="NoteExampleGrey">
       <xsl:copy>
         <xsl:apply-templates select="@*|node()" mode="grey"/>
