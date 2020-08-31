@@ -122,6 +122,7 @@
 
 <xsl:template name="wrapper">
   <xsl:param name="label"/>
+  <!-- add a paragraph with hard space/NBSP if another "grey box" was preceding  -->
   <xsl:if test="preceding-sibling::*[1][@data-type='note' or @data-type='example']">
     <div custom-style="SmallWhiteGap"><p>&#160;</p></div>
   </xsl:if>
