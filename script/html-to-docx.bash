@@ -13,7 +13,7 @@ temp_file="${input_file}.temp.html"
 
 cur_dir=$(pwd)
 
-xsltproc --output "${temp_file}" ./script/wrap-in-hr.xsl "${input_file}"
+xsltproc --output "${temp_file}" ./script/wrap-in-greybox.xsl "${input_file}"
 
 # In order to find the ../resources/*, pandoc's current directory needs to be where the HTML file is
 
