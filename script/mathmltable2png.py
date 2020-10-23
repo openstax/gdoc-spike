@@ -66,12 +66,34 @@ def _strip_mathjax_container(svg):
     return pure_svg
 
 
-def mathml2svg(equation):
+def mathml2svg_jsonrpc(equation):
     url = "http://localhost:3000/jsonrpc"
     payload = {
         "method": "mathml2svg",
         "params": [equation],
         # "params": ["xyz"],
+        "jsonrpc": "2.0",
+        "id": 0,
+    }
+
+    response = requests.post(url, json=payload).json()
+
+    if not 'result' in response:
+        # something went terrible wrong with calling the jsonrpc server and running the command
+        print('No result in calling mml2svg jayson/json-rpc server!')
+        sys.exit(1)
+        return ''
+    else:
+        svg = response['result']
+        if len(svg) > 0:
+            svg = _strip_mathjax_container(svg)
+        return svg
+
+def svg2png_jsonrpc(svg):
+    url = "http://localhost:3000/jsonrpc"
+    payload = {
+        "method": "svg2png",
+        "params": [svg],
         "jsonrpc": "2.0",
         "id": 0,
     }
@@ -104,15 +126,17 @@ def main():
                 math_etree, with_tail=False, inclusive_ns_prefixes=None)
             # convert bytes string from lxml to utf-8
             equation = str(bytes_equation, 'utf-8')
-            svg = mathml2svg(equation)
-            print(svg)
+            svg = mathml2svg_jsonrpc(equation)
+            # print(svg)
+            png = svg2png_jsonrpc(svg)
+            print(png[0:5])
             print('=' * 50)
         finally:
             pass  # TODO: handle exceptions better
-    etree.strip_elements(
-        f, '{http://www.w3.org/1999/xhtml}math', with_tail=False)
-    etree.strip_elements(
-        f, '{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
+    # etree.strip_elements(
+    #     f, '{http://www.w3.org/1999/xhtml}math', with_tail=False)
+    # etree.strip_elements(
+    #     f, '{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
     # print(etree.tostring(f, pretty_print=True).decode('utf-8'))
 
 
