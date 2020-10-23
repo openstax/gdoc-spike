@@ -44,7 +44,7 @@ MathJax.startup.promise.then(() => {
 
     // create a server
     const server = jayson.server({
-      add: function(args, callback) {
+      mathml2svg: function(args, callback) {
         MathJax.mathml2svgPromise(args[0] || '', {
             display: !mjopt.inline,
             em: mjopt.em,
