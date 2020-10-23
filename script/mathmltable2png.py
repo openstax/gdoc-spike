@@ -32,7 +32,6 @@ def force_math_namespace_only(doc):
     </xsl:template>
     </xsl:stylesheet>
     '''
-
     xslt_doc = etree.parse(io.StringIO(xslt))
     transform = etree.XSLT(xslt_doc)
     doc = transform(doc)
@@ -69,8 +68,6 @@ def _strip_mathjax_container(svg):
 
 def mathml2svg(equation):
     url = "http://localhost:3000/jsonrpc"
-
-    # Example echo method
     payload = {
         "method": "mathml2svg",
         "params": [equation],
@@ -78,6 +75,7 @@ def mathml2svg(equation):
         "jsonrpc": "2.0",
         "id": 0,
     }
+
     response = requests.post(url, json=payload).json()
 
     if not 'result' in response:
@@ -104,7 +102,8 @@ def main():
           math_etree = force_math_namespace_only(r)
           bytes_equation = etree.tostring(math_etree, with_tail=False, inclusive_ns_prefixes=None)
           equation = str(bytes_equation, 'utf-8') # convert bytes string from lxml to utf-8
-          print(mathml2svg(equation))
+          svg = mathml2svg(equation)
+          print(svg)
           print('=' * 50)
         finally:
           pass # TODO: handle exceptions better
