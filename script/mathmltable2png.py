@@ -7,7 +7,7 @@ import requests
 
 def force_math_namespace_only(doc):
     # http://wiki.tei-c.org/index.php/Remove-Namespaces.xsl
-    xslt=u'''<xsl:stylesheet
+    xslt = u'''<xsl:stylesheet
       version="1.0"
       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
       xmlns="http://www.w3.org/1998/Math/MathML">
@@ -39,7 +39,7 @@ def force_math_namespace_only(doc):
 
 
 def _strip_mathjax_container(svg):
-    xslt=u'''<xsl:stylesheet
+    xslt = u'''<xsl:stylesheet
       version="1.0"
       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
       xmlns="http://www.w3.org/1998/Math/MathML">
@@ -79,37 +79,42 @@ def mathml2svg(equation):
     response = requests.post(url, json=payload).json()
 
     if not 'result' in response:
-      # something went terrible wrong with calling the jsonrpc server and running the command
-      print('No result in calling mml2svg jayson/json-rpc server!')
-      sys.exit(1)
-      return ''
+        # something went terrible wrong with calling the jsonrpc server and running the command
+        print('No result in calling mml2svg jayson/json-rpc server!')
+        sys.exit(1)
+        return ''
     else:
-      svg = response['result']
-      if len(svg) > 0:
-        svg = _strip_mathjax_container(svg)
-      return svg
+        svg = response['result']
+        if len(svg) > 0:
+            svg = _strip_mathjax_container(svg)
+        return svg
 
 
 def main():
     if sys.version_info[0] < 3:
-      raise Exception("Must be using Python 3")
+        raise Exception("Must be using Python 3")
     f = etree.parse("/Users/marvin/openstax/gdoc-spike/3.3-nice/nice.html")
     # f = etree.parse(sys.argv[1])
     ns = {"h": "http://www.w3.org/1999/xhtml",
           "m": "http://www.w3.org/1998/Math/MathML"}
     for r in f.xpath('//h:math[descendant::h:mtable]|//m:math[descendant::m:mtable]', namespaces=ns):
         try:
-          math_etree = force_math_namespace_only(r)
-          bytes_equation = etree.tostring(math_etree, with_tail=False, inclusive_ns_prefixes=None)
-          equation = str(bytes_equation, 'utf-8') # convert bytes string from lxml to utf-8
-          svg = mathml2svg(equation)
-          print(svg)
-          print('=' * 50)
+            math_etree = force_math_namespace_only(r)
+            bytes_equation = etree.tostring(
+                math_etree, with_tail=False, inclusive_ns_prefixes=None)
+            # convert bytes string from lxml to utf-8
+            equation = str(bytes_equation, 'utf-8')
+            svg = mathml2svg(equation)
+            print(svg)
+            print('=' * 50)
         finally:
-          pass # TODO: handle exceptions better
-    etree.strip_elements(f, '{http://www.w3.org/1999/xhtml}math', with_tail=False)
-    etree.strip_elements(f, '{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
+            pass  # TODO: handle exceptions better
+    etree.strip_elements(
+        f, '{http://www.w3.org/1999/xhtml}math', with_tail=False)
+    etree.strip_elements(
+        f, '{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
     # print(etree.tostring(f, pretty_print=True).decode('utf-8'))
 
-if __name__== "__main__":
+
+if __name__ == "__main__":
     main()
