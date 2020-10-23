@@ -102,7 +102,7 @@ def main():
         try:
           math_etree = force_math_namespace_only(r)
           bytes_equation = etree.tostring(math_etree, with_tail=False, inclusive_ns_prefixes=None)
-          equation = str(bytes_equation, 'utf-8') # convert bytes string from lxml to utf-8 and ignore errors
+          equation = str(bytes_equation, 'utf-8') # convert bytes string from lxml to utf-8
           print(mathml2svg(equation))
           print('=' * 50)
         finally:
