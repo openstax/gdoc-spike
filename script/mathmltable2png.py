@@ -1,9 +1,9 @@
-from builtins import str
 from lxml import etree
 import os
 import io
 import sys
 import requests
+
 
 def force_math_namespace_only(doc):
     # http://wiki.tei-c.org/index.php/Remove-Namespaces.xsl
@@ -90,6 +90,7 @@ def mathml2svg(equation):
       if len(svg) > 0:
         svg = _strip_mathjax_container(svg)
       return svg
+
 
 def main():
     if sys.version_info[0] < 3:
