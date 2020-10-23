@@ -156,6 +156,9 @@ for filename in ${all_content}; do
 
   docx_file="output/${human_name}.docx"
 
+# TODO: convert MathML to PNG
+
+
   echo "Generating '${docx_file}' using ${base_name}"
 
   ./script/html-to-docx.bash ${filename} "${docx_file}"

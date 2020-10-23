@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "jayson": "^3.3.4",
+    "mathjax-full": "^3.1.2"
+  }
+}
