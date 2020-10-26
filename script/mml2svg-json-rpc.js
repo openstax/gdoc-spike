@@ -65,7 +65,7 @@ MathJax.startup.promise.then(() => {
       },
       svg2png: function(args, callback) {
         svgBuffer = Buffer.from(args[0]);
-        sharp(svgBuffer)
+        sharp(svgBuffer, { density: 900 })  // density describes DPI
           .png()
           .toBuffer()
           .then( data => { callback(null, data.toString('base64')); })

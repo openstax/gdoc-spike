@@ -3,6 +3,8 @@ import os
 import io
 import sys
 import requests
+import base64
+import hashlib
 
 
 def force_math_namespace_only(doc):
@@ -106,10 +108,11 @@ def svg2png_jsonrpc(svg):
         sys.exit(1)
         return ''
     else:
-        svg = response['result']
-        if len(svg) > 0:
-            svg = _strip_mathjax_container(svg)
-        return svg
+        png_base64 = response['result']
+        png_bytes = b''
+        if len(png_base64) > 0:
+            png_bytes = base64.b64decode(png_base64)
+        return png_bytes
 
 
 def main():
@@ -119,6 +122,7 @@ def main():
     # f = etree.parse(sys.argv[1])
     ns = {"h": "http://www.w3.org/1999/xhtml",
           "m": "http://www.w3.org/1998/Math/MathML"}
+
     for r in f.xpath('//h:math[descendant::h:mtable]|//m:math[descendant::m:mtable]', namespaces=ns):
         try:
             math_etree = force_math_namespace_only(r)
@@ -129,7 +133,14 @@ def main():
             svg = mathml2svg_jsonrpc(equation)
             # print(svg)
             png = svg2png_jsonrpc(svg)
-            print(png[0:5])
+
+            if png:
+                sha1 = hashlib.sha1(png)
+                # TODO: output in right directory
+                f = open('out/{}.png'.format(sha1.hexdigest()), 'wb')
+                f.write(png)
+                f.close()
+
             print('=' * 50)
         finally:
             pass  # TODO: handle exceptions better
