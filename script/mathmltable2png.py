@@ -43,7 +43,7 @@ def force_math_namespace_only(doc):
     return doc
 
 
-def _strip_mathjax_container(svg):
+def strip_mathjax_container(svg):
     xslt = u'''<xsl:stylesheet
       version="1.0"
       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -99,7 +99,7 @@ def mathml2svg_jsonrpc(equation):
         svg = response['result'][0]
         mathspeak = response['result'][1]
         if len(svg) > 0:
-            svg = _strip_mathjax_container(svg)
+            svg = strip_mathjax_container(svg)
         return svg, mathspeak
 
 
