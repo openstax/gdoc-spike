@@ -5,6 +5,9 @@ import sys
 import requests
 import base64
 import hashlib
+import struct
+
+DENSITY_DPI = 900
 
 
 def force_math_namespace_only(doc):
@@ -68,12 +71,19 @@ def _strip_mathjax_container(svg):
     return pure_svg
 
 
+def get_png_dimensions(png_bytes):
+    check = struct.unpack('>i', png_bytes[4:8])[0]
+    if check != 0x0d0a1a0a:
+        return 0, 0
+    width, height = struct.unpack('>ii', png_bytes[16:24])
+    return width, height
+
+
 def mathml2svg_jsonrpc(equation):
     url = "http://localhost:3000/jsonrpc"
     payload = {
         "method": "mathml2svg",
         "params": [equation],
-        # "params": ["xyz"],
         "jsonrpc": "2.0",
         "id": 0,
     }
@@ -84,12 +94,14 @@ def mathml2svg_jsonrpc(equation):
         # something went terrible wrong with calling the jsonrpc server and running the command
         print('No result in calling mml2svg jayson/json-rpc server!')
         sys.exit(1)
-        return ''
+        return '', ''
     else:
-        svg = response['result']
+        svg = response['result'][0]
+        mathspeak = response['result'][1]
         if len(svg) > 0:
             svg = _strip_mathjax_container(svg)
-        return svg
+        return svg, mathspeak
+
 
 def svg2png_jsonrpc(svg):
     url = "http://localhost:3000/jsonrpc"
@@ -124,31 +136,39 @@ def main():
           "m": "http://www.w3.org/1998/Math/MathML"}
 
     for r in f.xpath('//h:math[descendant::h:mtable]|//m:math[descendant::m:mtable]', namespaces=ns):
-        try:
-            math_etree = force_math_namespace_only(r)
-            bytes_equation = etree.tostring(
-                math_etree, with_tail=False, inclusive_ns_prefixes=None)
-            # convert bytes string from lxml to utf-8
-            equation = str(bytes_equation, 'utf-8')
-            svg = mathml2svg_jsonrpc(equation)
-            # print(svg)
+        math_etree = force_math_namespace_only(r)
+        bytes_equation = etree.tostring(
+            math_etree, with_tail=False, inclusive_ns_prefixes=None)
+        # convert bytes string from lxml to utf-8
+        equation = str(bytes_equation, 'utf-8')
+        svg, mathspeak = mathml2svg_jsonrpc(equation)
+
+        # do not replace if conversion failed
+        if svg:
             png = svg2png_jsonrpc(svg)
-
             if png:
-                sha1 = hashlib.sha1(png)
-                # TODO: output in right directory
-                f = open('out/{}.png'.format(sha1.hexdigest()), 'wb')
-                f.write(png)
-                f.close()
+                png_width, png_height = get_png_dimensions(png)
+                if png_width > 0 and png_height > 0:
+                    sha1 = hashlib.sha1(png)
+                    # TODO: output in right directory
+                    png_filename = 'out/{}.png'.format(sha1.hexdigest())
+                    png_file = open(png_filename, 'wb')
+                    png_file.write(png)
+                    png_file.close()
+                    display_width = round(png_width / (DENSITY_DPI / 75 - 1))
+                    display_height = round(png_height / (DENSITY_DPI / 75 - 1))
+                    img_xhtml = '<img src="{}" alt="{}" width="{}" height="{}" />'.format(
+                        png_filename, mathspeak, display_width, display_height)
+                    img_formatted = etree.fromstring(img_xhtml)
+                    r.getparent().replace(r, img_formatted)
+            else:
+                raise Exception('Failed to generate PNG from SVG of equation: ' + equation)
+        else:
+            raise Exception('Failed to generate SVG from MathML of equation: ' + equation)
 
-            print('=' * 50)
-        finally:
-            pass  # TODO: handle exceptions better
-    # etree.strip_elements(
-    #     f, '{http://www.w3.org/1999/xhtml}math', with_tail=False)
-    # etree.strip_elements(
-    #     f, '{http://www.w3.org/1998/Math/MathML}math', with_tail=False)
-    # print(etree.tostring(f, pretty_print=True).decode('utf-8'))
+        # print('=' * 50)
+
+    print(etree.tostring(f, pretty_print=True).decode('utf-8'))
 
 
 if __name__ == "__main__":

@@ -17,13 +17,15 @@ mjopt.dist = false;
 //
 MathJax = {
     options: {
-        enableAssistiveMml: mjopt.assistiveMml
+        enableAssistiveMml: mjopt.assistiveMml,
+        enableEnrichment: true,    // false to disable enrichment
+        enrichSpeech: 'shallow'    // or 'shallow', or 'deep'
     },
     loader: {
         paths: {mathjax: 'mathjax-full/es5'},
         source: (mjopt.dist ? {} : require('mathjax-full/components/src/source.js').source),
         require: require,
-        load: ['adaptors/liteDOM', 'input/mml/entities']
+        load: ['adaptors/liteDOM', 'input/mml/entities', 'a11y/semantic-enrich']
     },
     startup: {
         typeset: false
@@ -56,11 +58,11 @@ MathJax.startup.promise.then(() => {
             containerWidth: mjopt.width
         }).then((node) => {
             const adaptor = MathJax.startup.adaptor;
-            // output as svg
-            callback(null, (adaptor.outerHTML(node)));
+            // output as svg and mathspeak from aria-label
+            callback(null, [(adaptor.outerHTML(node)), node.attributes['aria-label']]);
         }).catch((err) => {
             console.log(err)
-            callback(null, ''); // return empty string for predictable (=empty string) error handling in python
+            callback(null, ['', '']); // return empty string array for predictable error handling in python
           });
       },
       svg2png: function(args, callback) {
