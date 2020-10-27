@@ -160,7 +160,10 @@ def main():
                     img_xhtml = '<img src="{}" alt="{}" width="{}" height="{}" />'.format(
                         png_filename, mathspeak, display_width, display_height)
                     img_formatted = etree.fromstring(img_xhtml)
+                    # replace MathML with img tag
                     r.getparent().replace(r, img_formatted)
+                else:
+                    raise Exception('Failed to get PNG image dimensions of equation' + equation)
             else:
                 raise Exception('Failed to generate PNG from SVG of equation: ' + equation)
         else:
